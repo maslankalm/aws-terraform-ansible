@@ -1,0 +1,13 @@
+---
+- hosts: "{{aws_region}}:&tag_Env_{{aws_tag_env}}:&tag_App_{{aws_tag_app}}:&tag_Id_{{aws_tag_id}}"
+  become: true
+  vars_files:
+  - "../../config/global.yml"
+  - "../../config/{{env}}/config.yml"
+  - "../../config/{{env}}/vault.yml"
+
+  tasks:
+  - name: Render index.html from template
+    template:
+      src: ../template/index.html.j2
+      dest: /var/www/html/index.html

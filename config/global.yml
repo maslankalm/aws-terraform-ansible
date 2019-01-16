@@ -1,0 +1,9 @@
+# Ansible/Terraform global configuration
+
+# Terraform S3 backend configuration
+terraform_backend_region: us-east-1
+terraform_backend_s3_bucket: maslankaio-terraform-states
+terraform_backend_dynamodb_table: maslankaio-terraform-locks
+
+# Disable strict host checking
+ansible_ssh_common_args: '-o StrictHostKeyChecking=no'

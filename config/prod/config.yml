@@ -1,0 +1,27 @@
+# Ansible/Terraform configuration
+
+# Ansible connection settings
+ansible_ssh_user: ubuntu
+ansible_ssh_private_key_file: ~/.ssh/maslankaio-keypair.pem
+
+# Location
+aws_region: us-east-1
+aws_vpc: vpc-45fe86a2 # default
+aws_instances:
+  - subnet: subnet-e473a5f3 # us-east-1a
+    count: 1
+  - subnet: subnet-d5c21a97 # us-east-1b
+    count: 1
+
+# Details
+aws_ami_id: ami-0ac019f4fcb7cb7e6 # ubuntu-bionic-18.04-amd64-server-20180912 | us-east-1
+aws_key_name: maslankaio-keypair
+aws_instance_type: t2.medium
+
+# EC2 Tags
+aws_tag_env: prod
+aws_tag_app: nginx
+aws_tag_id: website
+
+# Application specific configuration
+nginx_secret: "{{vault_nginx_secret}}"

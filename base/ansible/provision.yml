@@ -1,0 +1,25 @@
+---
+- hosts: "{{aws_region}}:&tag_Env_{{aws_tag_env}}:&tag_App_{{aws_tag_app}}:&tag_Id_{{aws_tag_id}}"
+  gather_facts: false
+  vars_files:
+  - "../../config/global.yml"
+  - "../../config/{{env}}/config.yml"
+  - "../../config/{{env}}/vault.yml"
+
+  tasks:
+  - name: "Install Ansible prerequisities"
+    raw: sudo bash -c "test -e /usr/bin/python || (apt -qy update && apt install -qy python-minimal python-pip)"
+
+- hosts: "{{aws_region}}:&tag_Env_{{aws_tag_env}}:&tag_App_{{aws_tag_app}}:&tag_Id_{{aws_tag_id}}"
+  become: true
+  vars_files:
+  - "../../config/global.yml"
+  - "../../config/{{env}}/config.yml"
+  - "../../config/{{env}}/vault.yml"
+
+  tasks:
+  - name: Install Nginx
+    apt:
+      name: nginx
+      state: present
+      update_cache: yes

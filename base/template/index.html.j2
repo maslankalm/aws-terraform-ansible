@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>index.html</title>
+        <style>
+            .center {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+            </style>
+    </head>
+
+    <body>
+        <div class="center">
+            Terraform/Ansible deployment succeeded. | Hostname is: {{inventory_hostname}} | Nginx secret is: {{nginx_secret}}
+        </div>
+    </body>
+</html>

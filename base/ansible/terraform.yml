@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+  - "../../config/global.yml"
+  - "../../config/{{env}}/config.yml"
+  - "../../config/{{env}}/vault.yml"
+
+  tasks:
+  - name: Retrieve management host public IP
+    ipify_facts:
+
+  - name: Render terraform.tf from template
+    template:
+      src: ../terraform/terraform.tf.j2
+      dest: ../terraform/terraform.tf
+
+  - name: Initialize Terraform providers
+    command: terraform init -no-color
+    args:
+      chdir: ../terraform
+    register: terraform_init
+
+  - debug:
+      msg: "{{terraform_init.stdout_lines}}"
